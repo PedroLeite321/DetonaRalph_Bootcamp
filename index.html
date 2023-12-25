@@ -7,11 +7,22 @@
     <title>Wreck-it Ralph</title>
     <link rel="stylesheet" href="./styles/style.css">
     <script defer src="./scripts/engine.js"></script>
+    <script defer src="./scripts/loadgame.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Press Start 2P' rel='stylesheet'>
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
 
 </head>
 <body>
+    <section class="loadScreen">
+        <header class="loadTxt">
+            <h3>Loading
+                <div class="dots"></div>
+                <div class="dots"></div>
+                <div class="dots"></span>
+            </h3>
+        </header>
+        <div class="loadingBar"></div>
+    </section>
     <section class="nav-container">
         <div class="wrap">
             <header class="nav-title">
@@ -25,7 +36,7 @@
         </div>
     </section>
     <section class="start-game">
-        <input type="button" value="Start Game!">
+        <input type="button" id="start-gameBtn" name="startGame" value="Start Game!">
     </section>
     <div class="game-row">
         <div class="square" id="0"></div>
