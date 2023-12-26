@@ -1,0 +1,1 @@
+Setar um time out para desfazer o loading
