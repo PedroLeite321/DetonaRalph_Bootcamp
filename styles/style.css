@@ -21,17 +21,19 @@
     font-size:5em;
 }
 .loadScreen h3  {
+    display: inline;
     color:white;
-    font-weight: 100;
+    
 }
 .loadTxt    {
     position:relative;
 }
 .dots   {
-    display:inline;
-    flex-direction:row;
-    width:10px;
-    height:10px;
+    display:inline-block;
+    width:20px;
+    height:20px;
+    margin:0;
+    padding:0;
     background-color:white;
     border-radius: 30px;
     
