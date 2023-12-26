@@ -112,6 +112,9 @@
     font-size:2.1em;
     margin-bottom:7px;
 }
+.nav-title h1   {
+    text-transform:uppercase;
+}
 .wrap   {
     border:rgb(156, 156, 144) dashed 8px;
     padding:16px;
