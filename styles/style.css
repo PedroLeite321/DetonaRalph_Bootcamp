@@ -17,26 +17,62 @@
     width:100%;
     text-align:center;
     justify-content:  center;
-    align-items: center; 
-    font-size:5em;
+    align-self: center; 
 }
 .loadScreen h3  {
     display: inline;
     color:white;
+    font-size:2.7em;
     
 }
 .loadTxt    {
     position:relative;
+    width:fit-content;
+    margin-left:auto;
+    margin-right:auto;
+    padding:15px;
+    text-align:center;
 }
-.dots   {
+.loadTxt div   {
     display:inline-block;
-    width:20px;
-    height:20px;
-    margin:0;
-    padding:0;
+    width:25px;
+    height:25px;
     background-color:white;
     border-radius: 30px;
     
+}
+.loadTxt .dots1 {
+    z-index:1;
+    -moz-animation: grow 4.4s infinite ease-in-out;
+    -webkit-animation: grow 4.4s infinite ease-in-out;
+}
+.loadTxt .dots2 {
+    -moz-animation: grow 4.4s infinite ease-in-out;
+    -webkit-animation: grow 4.4s infinite ease-in-out;
+    -webkit-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+}
+.loadTxt .dots3 {
+    -moz-animation: grow 4.4s infinite ease-in-out;
+    -webkit-animation: grow 4.4s infinite ease-in-out;
+    -webkit-animation-delay: 0.6s;
+    animation-delay: 0.4s;
+}
+
+
+@-moz-keyframes grow {
+    0% {-moz-transform: scale(0);}
+    25% {-moz-transform: scale(1);}
+    50% {-moz-transform: scale(0);}
+    75% {-moz-transform: scale(1);background:#ffffff;}
+    100% {-moz-transform: scale(0);background:#5e5e5e;}
+}
+@-webkit-keyframes grow {
+    0% {-webkit-transform: scale(0);}
+    25% {-webkit-transform: scale(1);}
+    50% {-webkit-transform: scale(0);}
+    75% {-webkit-transform: scale(1);background:#ffffff;}
+    100% {-webkit-transform: scale(0);background:#7b7b7b;}
 }
 .loadingBar {
     background-color:white;
