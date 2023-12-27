@@ -81,6 +81,7 @@
     margin-top:2%;
     width:55%;
     height:5%;
+    border:solid red 1px;
 }
 
 .progress   {
@@ -92,7 +93,7 @@
     left:0;
     right:0;
     bottom:0;
-    animation: loadup 5s ease-in;
+    animation: loadup 5.7s infinite;
 }
 @keyframes loadup   {
     100% {width: 100%;}
