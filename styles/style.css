@@ -116,6 +116,10 @@
 .nav-title h1   {
     text-transform:uppercase;
 }
+.number {
+    display:block;
+    padding:15px;
+}
 .wrap   {
     border:rgb(156, 156, 144) dashed 8px;
     padding:16px;
