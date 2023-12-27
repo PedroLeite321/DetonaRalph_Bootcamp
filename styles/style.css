@@ -143,19 +143,33 @@
     font-size:0.3em;
     padding:20px;
     margin-top:20px;
-    font-size:2em;
-    box-shadow: 0 2px #665;
+    font-size:2.5em;
+    box-shadow: 0 2px rgb(18, 18, 17);
 
 }
 .start-game input:hover {
-    background-color:rgb(180, 180, 180);
+    background-color:rgb(205, 193, 193);
     color:red;
 }
 .start-game input:active    {
     transform:translateY(2px);
 }
-.game-row   {
+.bkg    {
+    display:grid;
+    justify-content: center;
+    align-items: center;
+    padding:18px;
     background-color:black;
+    width:100%;
     height:100vh;
-    max-height:max-content;
+}
+#game-row   {
+    display:none;
+    grid-template-columns: auto auto auto;
+    height:max-content;
+}
+.square   {
+    border: 2px solid white;
+    height:160px;
+    width:160px;
 }
