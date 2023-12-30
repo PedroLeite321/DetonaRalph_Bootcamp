@@ -2,13 +2,14 @@ const state = {
     view: {
         square: document.querySelectorAll(".square"),
         time_left: document.querySelector("#time-left"),
-        score: document.querySelector("#score").innerHTML,
+        score: document.querySelector("#score"),
         lifes: document.querySelector("#lives"),
     },
     values: {
         gamePacing: 1000,
         hitGridEnemy: 0,
         hitGridHero: 0,
+        points: 0,
     },
 };
 
@@ -16,9 +17,14 @@ const addClickChecker = ()  =>  {
     
     state.view.square.forEach((square) =>  {
         square.addEventListener("mousedown", () =>  {
-            console.log(state.values.hitGridEnemy)
+            console.log(square.id)
+            console.log(state.values.hitGridEnemy + "enemy")
             if(square.id === state.values.hitGridEnemy)  {
-              alert("clicou");
+                state.values.points++;
+                state.view.score.textContent = state.values.points;
+            }else if(square.id === state.values.hitGridHero)   {
+                state.values.points--;
+                state.view.score.textContent = state.values.points;
             }
         })
     })
@@ -40,8 +46,8 @@ const moveCharacter = ()   =>   {
     randomSquareHero.classList.add("hero");
 
 
-    state.values.hitGrid = randomSquare.id;
-    state.values.hitGridHero = randomNumber2.id
+    state.values.hitGridEnemy = randomSquareEnemy.id;
+    state.values.hitGridHero = randomSquareHero.id
 
 
 }
