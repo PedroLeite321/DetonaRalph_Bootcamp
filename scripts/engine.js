@@ -16,17 +16,15 @@ const randomSquare = () => {
     let randomNumber = Math.floor(Math.random() * 9);
     let randomNumber2;
 
-    if(randomNumber2 === undefined || randomNumber2 === null || randomNumber2 === randomNumber)  {
+    do {
         randomNumber2 = Math.floor(Math.random() * 9);
-    }
+    } while (randomNumber === randomNumber2);
 
     let randomSquareEnemy = state.view.square[randomNumber];
     let randomSquareHero = state.view.square[randomNumber2];
 
     randomSquareEnemy.classList.add("enemy");
     randomSquareHero.classList.add("hero");
-
-    
 };
 
 const initialize = () => {
