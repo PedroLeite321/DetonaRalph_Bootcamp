@@ -5,13 +5,26 @@ const state = {
         score: document.querySelector("#score").innerHTML,
         lifes: document.querySelector("#lives"),
     },
-    values: {},
+    values: {
+        gamePacing: 1000,
+        hitGridEnemy: 0,
+        hitGridHero: 0,
+    },
 };
 
-const randomSquare = () => {
-    state.view.square.forEach((square) => {
-        square.classList.remove("enemy", "hero");
-    });
+const addClickChecker = ()  =>  {
+    
+    state.view.square.forEach((square) =>  {
+        square.addEventListener("mousedown", () =>  {
+            console.log(state.values.hitGridEnemy)
+            if(square.id === state.values.hitGridEnemy)  {
+              alert("clicou");
+            }
+        })
+    })
+}
+
+const moveCharacter = ()   =>   {
 
     let randomNumber = Math.floor(Math.random() * 9);
     let randomNumber2;
@@ -25,12 +38,27 @@ const randomSquare = () => {
 
     randomSquareEnemy.classList.add("enemy");
     randomSquareHero.classList.add("hero");
+
+
+    state.values.hitGrid = randomSquare.id;
+    state.values.hitGridHero = randomNumber2.id
+
+
+}
+
+const randomSquare = () => {
+    state.view.square.forEach((square) => {
+        square.classList.remove("enemy", "hero");
+    });
+    moveCharacter();
+    
 };
 
 const initialize = () => {
+    addClickChecker();
     const runRandomSquareWithTimeout = () => {
         randomSquare();
-        setTimeout(runRandomSquareWithTimeout, 900);
+        setTimeout(runRandomSquareWithTimeout, state.values.gamePacing);
     };
 
     runRandomSquareWithTimeout();
