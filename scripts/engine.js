@@ -22,9 +22,7 @@ const gameOver = () =>  {
     state.view.game.style.display = "none";
 }
 
-const playAgain = () => {
-    
-}
+
 
 const checkGameOverCondition = () =>    {
     let levelMaxPoints = state.values.currentLevel * 5;
@@ -84,6 +82,7 @@ const randomSquare = () => {
 };
 
 const initialize = () => {
+    state.view.score.textContent = 0;
     addClickChecker();
     const runRandomSquareWithTimeout = () => {
         randomSquare();
