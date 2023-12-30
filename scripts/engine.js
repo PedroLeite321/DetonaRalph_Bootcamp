@@ -4,27 +4,50 @@ const state = {
         time_left: document.querySelector("#time-left"),
         score: document.querySelector("#score"),
         lifes: document.querySelector("#lives"),
+        gameOver: document.getElementById("gameOver"),
+        game: document.getElementById("game-row"),
     },
     values: {
         gamePacing: 1000,
         hitGridEnemy: 0,
         hitGridHero: 0,
         points: 0,
+        currentLevel: 1,
     },
 };
 
+const gameOver = () =>  {
+    console.log("gameover");
+    state.view.gameOver.style.display = "block";
+    state.view.game.style.display = "none";
+}
+
+const playAgain = () => {
+    
+}
+
+const checkGameOverCondition = () =>    {
+    let levelMaxPoints = state.values.currentLevel * 5;
+    if(state.view.score.innerHTML < 0) {
+
+        gameOver();
+
+    }
+}
 const addClickChecker = ()  =>  {
     
     state.view.square.forEach((square) =>  {
         square.addEventListener("mousedown", () =>  {
-            console.log(square.id)
-            console.log(state.values.hitGridEnemy + "enemy")
+            console.log(square.id);
+            console.log(state.values.hitGridEnemy + "enemy");
             if(square.id === state.values.hitGridEnemy)  {
                 state.values.points++;
                 state.view.score.textContent = state.values.points;
+                checkGameOverCondition();
             }else if(square.id === state.values.hitGridHero)   {
                 state.values.points--;
                 state.view.score.textContent = state.values.points;
+                checkGameOverCondition();
             }
         })
     })

@@ -191,3 +191,30 @@
     background-position:center;
   
 }
+#gameOver   {
+    display:none;
+    position:absolute;
+    height:100vh;
+    width:100%;
+    background-color:black;
+}
+.gameover-title {
+    color:red;
+    font-size:2em;
+    text-align:center;
+}
+.ralph-won  {
+    text-align:center;
+    height:100vh;
+}
+.ralph-won h3   {
+    color:white;
+    padding:30px;
+}
+.ralph-won  img{
+    margin-top:30px;
+    width:700px;
+    text-align:center;
+    height:500px;
+    image-rendering: pixelated;
+}
