@@ -30,6 +30,7 @@ const checkGameOverCondition = () =>    {
     if(state.view.score.innerHTML < 0) {
         state.view.score.textContent = 0;
         gameOver();
+        
 
     }
 }
@@ -38,6 +39,7 @@ const decreaseTimeLeft = () =>  {
     state.view.time_left.textContent = state.values.maxTime--;
     if(state.view.time_left.textContent <= 0)   {
         gameOver();
+        state.values.maxTime = 60;
     }
 
 }
@@ -107,4 +109,3 @@ const initialize = () => {
     runRandomSquareWithTimeout();
 };
 
-initialize();
