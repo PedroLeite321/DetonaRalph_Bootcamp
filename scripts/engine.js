@@ -13,6 +13,7 @@ const state = {
         hitGridHero: 0,
         points: 0,
         currentLevel: 1,
+        maxTime: 60,
     },
 };
 
@@ -31,6 +32,14 @@ const checkGameOverCondition = () =>    {
         gameOver();
 
     }
+}
+const decreaseTimeLeft = () =>  {
+    
+    state.view.time_left.textContent = state.values.maxTime--;
+    if(state.view.time_left.textContent <= 0)   {
+        gameOver();
+    }
+
 }
 const addClickChecker = ()  =>  {
     
@@ -56,7 +65,7 @@ const addClickChecker = ()  =>  {
 }
 
 const moveCharacter = ()   =>   {
-
+    
     let randomNumber = Math.floor(Math.random() * 9);
     let randomNumber2;
 
@@ -80,6 +89,7 @@ const moveCharacter = ()   =>   {
 const randomSquare = () => {
     state.view.square.forEach((square) => {
         square.classList.remove("enemy", "hero");
+        
     });
     moveCharacter();
     
@@ -89,6 +99,7 @@ const initialize = () => {
     
     addClickChecker();
     const runRandomSquareWithTimeout = () => {
+        decreaseTimeLeft();
         randomSquare();
         setTimeout(runRandomSquareWithTimeout, state.values.gamePacing);
     };
