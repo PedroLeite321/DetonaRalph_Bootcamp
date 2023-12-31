@@ -27,7 +27,7 @@ const gameOver = () =>  {
 const checkGameOverCondition = () =>    {
     let levelMaxPoints = state.values.currentLevel * 5;
     if(state.view.score.innerHTML < 0) {
-
+        state.view.score.textContent = 0;
         gameOver();
 
     }
@@ -43,6 +43,10 @@ const addClickChecker = ()  =>  {
                 state.view.score.textContent = state.values.points;
                 checkGameOverCondition();
             }else if(square.id === state.values.hitGridHero)   {
+                state.values.points--;
+                state.view.score.textContent = state.values.points;
+                checkGameOverCondition();
+            }else if (square.id !== state.values.hitGridHero && square.id !== state.values.hitGridEnemy)  {
                 state.values.points--;
                 state.view.score.textContent = state.values.points;
                 checkGameOverCondition();
@@ -82,7 +86,7 @@ const randomSquare = () => {
 };
 
 const initialize = () => {
-    state.view.score.textContent = 0;
+    
     addClickChecker();
     const runRandomSquareWithTimeout = () => {
         randomSquare();
