@@ -93,7 +93,7 @@
     left:0;
     right:0;
     bottom:0;
-    animation: loadup 5.7s infinite;
+    animation: loadup 7.0s infinite;
 }
 @keyframes loadup   {
     100% {width: 100%;}

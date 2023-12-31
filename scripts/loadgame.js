@@ -30,6 +30,7 @@ function loadGameBtn()  {
 const loading = loadGameBtn();
 loading();
 
+
 const playAgain = (() => {
 
     const playAgainBtn = document.querySelector("#playAgainBtn");

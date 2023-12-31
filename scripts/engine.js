@@ -14,8 +14,40 @@ const state = {
         points: 0,
         currentLevel: 1,
         maxTime: 60,
+        maxPointsLv: 0,
     },
-};
+}
+
+const checkWinning = () =>  {
+
+    const checkCurrentLevel = (level) => {
+        switch(level)   {
+            case 1:
+                state.values.maxPointsLv = 15;
+                state.values.gamePacing = 1000;
+                break;
+            case 2:
+                state.values.maxPointsLv = 20;
+                state.values.gamePacing = 700;
+                break;
+            case 3:
+                state.values.maxPointsLv = 30;
+                state.values.gamePacing = 400;
+                break;
+        }
+        return state.values.maxPointsLv;
+    };
+
+    const maxPoints = checkCurrentLevel(state.values.currentLevel);
+
+    if(state.view.score.textContent == maxPoints)   {
+        winningScreen();
+        state.values.currentLevel++;
+        
+    }
+
+    
+}
 
 const gameOver = () =>  {
     console.log("gameover");
@@ -26,20 +58,22 @@ const gameOver = () =>  {
 
 
 const checkGameOverCondition = () =>    {
-    let levelMaxPoints = state.values.currentLevel * 5;
     if(state.view.score.innerHTML < 0) {
         state.view.score.textContent = 0;
         gameOver();
+        
         
 
     }
 }
 const decreaseTimeLeft = () =>  {
-    
-    state.view.time_left.textContent = state.values.maxTime--;
+    state.values.maxTime--;
+    state.view.time_left.textContent = state.values.maxTime;
+    console.log("alface");
     if(state.view.time_left.textContent <= 0)   {
         gameOver();
         state.values.maxTime = 60;
+        console.log("teste");
     }
 
 }
@@ -53,14 +87,17 @@ const addClickChecker = ()  =>  {
                 state.values.points++;
                 state.view.score.textContent = state.values.points;
                 checkGameOverCondition();
+                checkWinning();
             }else if(square.id === state.values.hitGridHero)   {
                 state.values.points--;
                 state.view.score.textContent = state.values.points;
                 checkGameOverCondition();
+                checkWinning();
             }else if (square.id !== state.values.hitGridHero && square.id !== state.values.hitGridEnemy)  {
                 state.values.points--;
                 state.view.score.textContent = state.values.points;
                 checkGameOverCondition();
+                checkWinning();
             }
         })
     })
@@ -101,8 +138,9 @@ const initialize = () => {
     
     addClickChecker();
     const runRandomSquareWithTimeout = () => {
-        decreaseTimeLeft();
+        
         randomSquare();
+        decreaseTimeLeft();
         setTimeout(runRandomSquareWithTimeout, state.values.gamePacing);
     };
 
