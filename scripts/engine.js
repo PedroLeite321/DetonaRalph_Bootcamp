@@ -8,6 +8,9 @@ const state = {
         lifes: document.querySelector("#lives"),
         gameOver: document.getElementById("gameOver"),
         game: document.getElementById("game-row"),
+        ralphFall: document.getElementById("winningScreen"),
+        ralphDefeat: document.getElementById("ralphDefeatAnimation"),
+        ralphInMud: document.getElementById("mud-ralph"),
     },
     values: {
         gamePacing: 1000,
@@ -40,7 +43,10 @@ const checkWinning = () =>  {
         }
         
     };
-    
+    const winningScreen = () =>  {
+        state.view.ralphFall.style.display = "block";
+       
+    }
     const checkNextStageConditions = () =>  {
         if(state.view.score.textContent === state.values.maxPointsLv && state.values.currentlevel < 4)   {
               state.values.currentLevel++;
