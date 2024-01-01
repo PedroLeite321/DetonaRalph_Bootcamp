@@ -1,3 +1,5 @@
+let mainTimeout;
+
 const state = {
     view: {
         square: document.querySelectorAll(".square"),
@@ -15,6 +17,7 @@ const state = {
         currentLevel: 1,
         maxTime: 60,
         maxPointsLv: 0,
+        isGameOver: false,
     },
 }
 
@@ -35,24 +38,27 @@ const checkWinning = () =>  {
                 state.values.gamePacing = 400;
                 break;
         }
-        return state.values.maxPointsLv;
-    };
-
-    const maxPoints = checkCurrentLevel(state.values.currentLevel);
-
-    if(state.view.score.textContent == maxPoints)   {
-        winningScreen();
-        state.values.currentLevel++;
         
+    };
+    
+    const checkNextStageConditions = () =>  {
+        if(state.view.score.textContent === state.values.maxPointsLv && state.values.currentlevel < 4)   {
+              state.values.currentLevel++;
+        }winningScreen();
     }
 
+    checkCurrentLevel(state.values.currentLevel);
+    checkNextStageConditions();
     
 }
 
 const gameOver = () =>  {
-    console.log("gameover");
     state.view.gameOver.style.display = "block";
     state.view.game.style.display = "none";
+    state.values.maxTime = 60;
+    state.view.time_left.textContent = 60;
+    state.values.isGameOver = true;
+    playAgain();
 }
 
 
@@ -63,17 +69,19 @@ const checkGameOverCondition = () =>    {
         gameOver();
         
         
+        
 
     }
 }
 const decreaseTimeLeft = () =>  {
-    state.values.maxTime--;
-    state.view.time_left.textContent = state.values.maxTime;
-    console.log("alface");
-    if(state.view.time_left.textContent <= 0)   {
+    if(!state.values.isGameOver)  {
+        state.view.time_left.textContent = state.values.maxTime--;
+        
+    }
+    else if(state.view.time_left.textContent <= 0)   {
         gameOver();
         state.values.maxTime = 60;
-        console.log("teste");
+        
     }
 
 }
@@ -81,23 +89,27 @@ const addClickChecker = ()  =>  {
     
     state.view.square.forEach((square) =>  {
         square.addEventListener("mousedown", () =>  {
-            console.log(square.id);
-            console.log(state.values.hitGridEnemy + "enemy");
             if(square.id === state.values.hitGridEnemy)  {
+
                 state.values.points++;
                 state.view.score.textContent = state.values.points;
                 checkGameOverCondition();
                 checkWinning();
+
             }else if(square.id === state.values.hitGridHero)   {
+
                 state.values.points--;
                 state.view.score.textContent = state.values.points;
                 checkGameOverCondition();
                 checkWinning();
+
             }else if (square.id !== state.values.hitGridHero && square.id !== state.values.hitGridEnemy)  {
+
                 state.values.points--;
                 state.view.score.textContent = state.values.points;
                 checkGameOverCondition();
                 checkWinning();
+
             }
         })
     })
@@ -126,6 +138,7 @@ const moveCharacter = ()   =>   {
 }
 
 const randomSquare = () => {
+    
     state.view.square.forEach((square) => {
         square.classList.remove("enemy", "hero");
         
@@ -135,13 +148,16 @@ const randomSquare = () => {
 };
 
 const initialize = () => {
-    
+   
     addClickChecker();
     const runRandomSquareWithTimeout = () => {
-        
-        randomSquare();
+
         decreaseTimeLeft();
-        setTimeout(runRandomSquareWithTimeout, state.values.gamePacing);
+        randomSquare();
+        mainTimeout = setTimeout(runRandomSquareWithTimeout, state.values.gamePacing);
+        
+        
+        
     };
 
     runRandomSquareWithTimeout();

@@ -9,8 +9,11 @@ function loadGameBtn()  {
         const startButton = document.querySelector("#start-gameBtn").addEventListener('click', (e) =>{
             
             const startFunction = setInterval(() =>   {
-                initialize();
-                console.log("teste");
+                if(state.values.isGameOver == false)   {
+                    console.log('teste')
+                    initialize();
+                }
+                console.log(`${state.values.isGameOver}`);
             }, 6200);
             
             loading.style.display = "flex";
@@ -31,7 +34,7 @@ const loading = loadGameBtn();
 loading();
 
 
-const playAgain = (() => {
+const playAgain = () => {
 
     const playAgainBtn = document.querySelector("#playAgainBtn");
 
@@ -42,8 +45,10 @@ const playAgain = (() => {
         gameOver.style.display = "none";
         startBtnId = document.getElementById("start-gameBtn");
         startBtnId.style.display = "inline";
+        state.values.gameover = false;
         loading();
+        
         
        
     })
-})();
+}
