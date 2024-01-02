@@ -239,32 +239,12 @@
     width:100%;
     height:100vh;
     background-color:black;
+    text-align:center;
 }
 #winningScreen h3,p   {
     color:white;
-    text-align:center;
     padding:15px;
 }
-#ralphDefeatAnimation   {
-    display:none;
-    position:absolute;
-    width:100%;
-    height:100vh;
-    background-color:black;
-    justify-content: center;
-    align-items: center; 
-}
-#ralphDefeatAnimation img   {
-    display:none;
-    width:100%;
-    height:100%;
-}
-#mud-ralph  {
-    display:none;
-    position:absolute;
-    width:100%;
-    height:100vh;
-    background-color:black;
-    justify-content: center;
-    align-items: center; 
+#winningScreen img  {
+    padding:20px;
 }

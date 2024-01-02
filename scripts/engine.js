@@ -9,8 +9,6 @@ const state = {
         gameOver: document.getElementById("gameOver"),
         game: document.getElementById("game-row"),
         ralphFall: document.getElementById("winningScreen"),
-        ralphDefeat: document.getElementById("ralphDefeatAnimation"),
-        ralphInMud: document.getElementById("mud-ralph"),
     },
     values: {
         gamePacing: 1000,
@@ -18,7 +16,7 @@ const state = {
         hitGridHero: 0,
         points: 0,
         currentLevel: 1,
-        maxTime: 60,
+        maxTime: 6,
         maxPointsLv: 0,
         isGameOver: false,
     },
@@ -44,17 +42,23 @@ const checkWinning = () =>  {
         
     };
     const winningScreen = () =>  {
-        state.view.ralphFall.style.display = "block";
-       
+        state.view.gameOver.style.display = "block";
+        state.view.game.style.display = "none";
+        state.values.maxTime = 60;
+        state.view.time_left.textContent = 60;
+        state.values.isGameOver = true;
+        playAgain();
     }
+    
     const checkNextStageConditions = () =>  {
-        if(state.view.score.textContent === state.values.maxPointsLv && state.values.currentlevel < 4)   {
+        if(state.view.score.textContent === state.values.maxPointsLv && state.values.currentLevel < 4)   {
               state.values.currentLevel++;
-        }winningScreen();
+        }
     }
 
     checkCurrentLevel(state.values.currentLevel);
     checkNextStageConditions();
+  
     
 }
 
@@ -74,21 +78,20 @@ const checkGameOverCondition = () =>    {
         state.view.score.textContent = 0;
         gameOver();
         
-        
-        
-
     }
 }
 const decreaseTimeLeft = () =>  {
     if(!state.values.isGameOver)  {
         state.view.time_left.textContent = state.values.maxTime--;
-        
+
+        if(state.view.time_left.textContent < 0)   {
+            gameOver();
+            state.values.maxTime = 60;
+            state.values.isGameOver = true;
+            
+        }
     }
-    else if(state.view.time_left.textContent <= 0)   {
-        gameOver();
-        state.values.maxTime = 60;
-        
-    }
+    
 
 }
 const addClickChecker = ()  =>  {
