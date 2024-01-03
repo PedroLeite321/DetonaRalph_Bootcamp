@@ -37,10 +37,11 @@ loading();
 const playAgain = () => {
 
     const playAgainBtn = document.querySelector("#playAgainBtn");
-
-
+    const playAgainBtn2 = document.querySelector("#playAgainBtn2");
+    
 
     playAgainBtn.addEventListener("click", ()   =>  {
+        
         const gameOver = document.getElementById("gameOver");
         gameOver.style.display = "none";
         startBtnId = document.getElementById("start-gameBtn");
@@ -50,5 +51,18 @@ const playAgain = () => {
         
         
        
-    })
+    });
+
+    playAgainBtn2.addEventListener("click", ()   =>  {
+        
+        const winningScreen = document.getElementById("winningScreen");
+        winningScreen.style.display = "none";
+        startBtnId = document.getElementById("start-gameBtn");
+        startBtnId.style.display = "inline";
+        state.values.gameover = false;
+        loading();
+        
+        
+       
+    });
 }

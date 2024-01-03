@@ -16,7 +16,7 @@ const state = {
         hitGridHero: 0,
         points: 0,
         currentLevel: 1,
-        maxTime: 6,
+        maxTime: 60,
         maxPointsLv: 0,
         isGameOver: false,
     },
@@ -25,7 +25,7 @@ const state = {
 const checkWinning = () =>  {
 
     const checkCurrentLevel = (level) => {
-        switch(level)   {
+        switch (level) {
             case 1:
                 state.values.maxPointsLv = 15;
                 state.values.gamePacing = 1000;
@@ -35,14 +35,16 @@ const checkWinning = () =>  {
                 state.values.gamePacing = 700;
                 break;
             case 3:
-                state.values.maxPointsLv = 30;
-                state.values.gamePacing = 400;
+                state.values.maxPointsLv = 25;
+                state.values.gamePacing = 500;
                 break;
         }
-        
+        console.log(state.values.maxPointsLv);
+        console.log(state.values.gamePacing);
     };
+
     const winningScreen = () =>  {
-        state.view.gameOver.style.display = "block";
+        state.view.ralphFall.style.display = "block";
         state.view.game.style.display = "none";
         state.values.maxTime = 60;
         state.view.time_left.textContent = 60;
@@ -51,13 +53,18 @@ const checkWinning = () =>  {
     }
     
     const checkNextStageConditions = () =>  {
-        if(state.view.score.textContent === state.values.maxPointsLv && state.values.currentLevel < 4)   {
+        if(state.view.score.textContent >= state.values.maxPointsLv && state.values.currentLevel < 4)   {
               state.values.currentLevel++;
+              console.log( state.values.currentLevel)
+              checkCurrentLevel(state.values.currentLevel);
+              checkNextStageConditions();
+        } else if (state.values.currentLevel === 1 && state.view.score.textContent === state.values.maxPointsLv) {
+            winningScreen();
         }
     }
-
     checkCurrentLevel(state.values.currentLevel);
     checkNextStageConditions();
+    
   
     
 }
@@ -68,6 +75,7 @@ const gameOver = () =>  {
     state.values.maxTime = 60;
     state.view.time_left.textContent = 60;
     state.values.isGameOver = true;
+    clearTimeout(mainTimeout);
     playAgain();
 }
 
@@ -159,6 +167,7 @@ const randomSquare = () => {
 const initialize = () => {
    
     addClickChecker();
+    state.values.currentLevel = 1;
     const runRandomSquareWithTimeout = () => {
 
         decreaseTimeLeft();
