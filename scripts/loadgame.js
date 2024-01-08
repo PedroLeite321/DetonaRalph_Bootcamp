@@ -1,7 +1,7 @@
 function loadGameBtn()  {
     return function wasClicked()    {
         
-
+        
         const loading = document.getElementById("loadScreen");
         const gamerow = document.getElementById("game-row");
         

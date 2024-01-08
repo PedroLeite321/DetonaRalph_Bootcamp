@@ -9,6 +9,7 @@ const state = {
         gameOver: document.getElementById("gameOver"),
         game: document.getElementById("game-row"),
         ralphFall: document.getElementById("winningScreen"),
+        nextLevelAlert: document.getElementById("popUp"),
     },
     values: {
         gamePacing: 1000,
@@ -22,28 +23,33 @@ const state = {
     },
 }
 
-const checkWinning = () =>  {
-
+const checkWinning = () => {
     const checkCurrentLevel = (level) => {
+        state.view.nextLevelAlert.style.display = "block";
         switch (level) {
             case 1:
+                console.log('torta')
                 state.values.maxPointsLv = 15;
-                state.values.gamePacing = 1000;
+                state.values.gamePacing = 1300;
+                state.view.nextLevelAlert.textContent = `level ${level}`;
+                checkNextStageConditions();
                 break;
             case 2:
                 state.values.maxPointsLv = 20;
-                state.values.gamePacing = 700;
+                state.values.gamePacing = 1000;
+                state.view.nextLevelAlert.textContent = `level ${level}`;
+                checkNextStageConditions();
                 break;
             case 3:
-                state.values.maxPointsLv = 25;
-                state.values.gamePacing = 500;
+                state.values.maxPointsLv = 30;
+                state.values.gamePacing = 800;
+                state.view.nextLevelAlert.textContent = `level ${level}`;
+                checkNextStageConditions();
                 break;
         }
-        console.log(state.values.maxPointsLv);
-        console.log(state.values.gamePacing);
     };
 
-    const winningScreen = () =>  {
+    const winningScreen = () => {
         state.view.ralphFall.style.display = "block";
         state.view.game.style.display = "none";
         state.values.maxTime = 60;
@@ -51,23 +57,21 @@ const checkWinning = () =>  {
         state.values.isGameOver = true;
         playAgain();
     }
-    
-    const checkNextStageConditions = () =>  {
-        if(state.view.score.textContent >= state.values.maxPointsLv && state.values.currentLevel < 4)   {
-              state.values.currentLevel++;
-              console.log( state.values.currentLevel)
-              checkCurrentLevel(state.values.currentLevel);
-              checkNextStageConditions();
-        } else if (state.values.currentLevel === 1 && state.view.score.textContent === state.values.maxPointsLv) {
+
+    const checkNextStageConditions = () => {
+        const score = parseInt(state.view.score.textContent, 10); // Convert to number
+        if (score === state.values.maxPointsLv && state.values.currentLevel < 3) {
+            state.values.currentLevel++;
+            console.log("aaaa");
+            checkCurrentLevel(state.values.currentLevel);
+        } else if (state.values.currentLevel === 3 && score === state.values.maxPointsLv) {
             winningScreen();
         }
     }
+
     checkCurrentLevel(state.values.currentLevel);
-    checkNextStageConditions();
-    
-  
-    
 }
+
 
 const gameOver = () =>  {
     state.view.gameOver.style.display = "block";
@@ -165,11 +169,13 @@ const randomSquare = () => {
 };
 
 const initialize = () => {
-   
     addClickChecker();
     state.values.currentLevel = 1;
+    state.view.score.textContent = 0;
+    state.values.points = 0;
+    state.view.nextLevelAlert.style.display = "none";
     const runRandomSquareWithTimeout = () => {
-
+        
         decreaseTimeLeft();
         randomSquare();
         mainTimeout = setTimeout(runRandomSquareWithTimeout, state.values.gamePacing);

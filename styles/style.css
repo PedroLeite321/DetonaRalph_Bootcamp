@@ -248,3 +248,10 @@
 #winningScreen img  {
     padding:20px;
 }
+#popUp  {
+    color:white;
+    text-align:center;
+    margin-top:10px;
+    padding:15px;
+    font-size:0.9em;
+}
