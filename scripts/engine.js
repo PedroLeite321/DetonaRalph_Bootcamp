@@ -25,7 +25,7 @@ const state = {
 
 const checkWinning = () => {
     const checkCurrentLevel = (level) => {
-        state.view.nextLevelAlert.style.display = "block";
+        
         switch (level) {
             case 1:
                 console.log('torta')
@@ -60,7 +60,7 @@ const checkWinning = () => {
 
     const checkNextStageConditions = () => {
         const score = parseInt(state.view.score.textContent, 10); // Convert to number
-        if (score === state.values.maxPointsLv && state.values.currentLevel < 3) {
+        if (score >= state.values.maxPointsLv && state.values.currentLevel < 3) {
             state.values.currentLevel++;
             console.log("aaaa");
             checkCurrentLevel(state.values.currentLevel);
@@ -94,7 +94,8 @@ const checkGameOverCondition = () =>    {
 }
 const decreaseTimeLeft = () =>  {
     if(!state.values.isGameOver)  {
-        state.view.time_left.textContent = state.values.maxTime--;
+        state.values.maxTime--;
+        state.view.time_left.textContent = state.values.maxTime;
 
         if(state.view.time_left.textContent < 0)   {
             gameOver();
@@ -173,7 +174,7 @@ const initialize = () => {
     state.values.currentLevel = 1;
     state.view.score.textContent = 0;
     state.values.points = 0;
-    state.view.nextLevelAlert.style.display = "none";
+    state.view.nextLevelAlert.style.display = "flex";
     const runRandomSquareWithTimeout = () => {
         
         decreaseTimeLeft();

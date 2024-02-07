@@ -1,4 +1,5 @@
 function loadGameBtn()  {
+    let startFunction;
     return function wasClicked()    {
         
         
@@ -7,8 +8,8 @@ function loadGameBtn()  {
         
         startBtnId = document.getElementById("start-gameBtn");
         const startButton = document.querySelector("#start-gameBtn").addEventListener('click', (e) =>{
-            
-            const startFunction = setInterval(() =>   {
+            clearInterval(startFunction);
+            startFunction = setInterval(() =>   {
                 if(state.values.isGameOver == false)   {
                     console.log('teste')
                     initialize();
@@ -46,7 +47,7 @@ const playAgain = () => {
         gameOver.style.display = "none";
         startBtnId = document.getElementById("start-gameBtn");
         startBtnId.style.display = "inline";
-        state.values.gameover = false;
+        state.values.isGameOver = false;
         loading();
         
         
@@ -59,7 +60,7 @@ const playAgain = () => {
         winningScreen.style.display = "none";
         startBtnId = document.getElementById("start-gameBtn");
         startBtnId.style.display = "inline";
-        state.values.gameover = false;
+        state.values.isGameOver = false;
         loading();
         
         

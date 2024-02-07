@@ -168,7 +168,6 @@
 .bkg    {
     display:grid;
     justify-content: center;
-    
     padding:8px;
     background-color:black;
     width:100%;
@@ -249,9 +248,15 @@
     padding:20px;
 }
 #popUp  {
+    position:absolute !important;
     color:white;
-    text-align:center;
+    display:none;
+    justify-content: center;    
+    align-items: center;
     margin-top:10px;
-    padding:15px;
+    bottom:50px;
+    width:100%;
+    left:0;
+    right:0;
     font-size:0.9em;
 }
