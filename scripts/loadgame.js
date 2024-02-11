@@ -64,6 +64,7 @@ const playAgain = () => {
         startBtnId = document.getElementById("start-gameBtn");
         startBtnId.style.display = "inline";
         state.values.isGameOver = false;
+        startUpGame();
         loading();
         
         

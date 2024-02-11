@@ -23,6 +23,7 @@ const state = {
         haswon: false
     },
 }
+let currentLevel = state.values.currentLevel;
 
 const cleanUpGame = () =>   {
     state.view.square.forEach((square) => {
@@ -39,6 +40,8 @@ const startUpGame = () =>   {
 }
 
 const checkWinning = () => {
+    console.log(currentLevel);
+    console.log(state.values.currentLevel);
     const checkCurrentLevel = (level) => {
         
         switch (level) {
@@ -46,24 +49,24 @@ const checkWinning = () => {
                 console.log('torta');
                 state.values.maxPointsLv = 15;
                 state.values.gamePacing = 1300;
-                state.view.nextLevelAlert.textContent = `level ${level}`;
+                state.view.nextLevelAlert.textContent = `Level ${level}`;
                 checkNextStageConditions();
                 break;
             case 2:
                 state.values.maxPointsLv = 20;
                 state.values.gamePacing = 1000;
-                state.view.nextLevelAlert.textContent = `level ${level}`;
+                state.view.nextLevelAlert.textContent = `Level ${level}`;
                 checkNextStageConditions();
                 break;
             case 3:
                 state.values.maxPointsLv = 30;
                 state.values.gamePacing = 800;
-                state.view.nextLevelAlert.textContent = `level ${level}`;
+                state.view.nextLevelAlert.textContent = `Level ${level}`;
                 checkNextStageConditions();
                 break;
             default:
-                state.values.currentLevel = 1;
-                state.view.nextLevelAlert.textContent = `Level ${state.values.currentLevel}`;
+            
+                state.view.nextLevelAlert.textContent = `Level ${currentLevel}`;
         }
     };
 
@@ -72,23 +75,25 @@ const checkWinning = () => {
         state.view.game.style.display = "none";
         state.values.maxTime = 60;
         state.view.time_left.textContent = 60;
-        state.values.isGameOver = true;
         state.values.haswon = true;
         playAgain();
     }
 
     const checkNextStageConditions = () => {
+        
         const score = parseInt(state.view.score.textContent, 10); // Convert to number
         if (score >= state.values.maxPointsLv && state.values.currentLevel < 3) {
             state.values.currentLevel++;
             console.log("aaaa");
             checkCurrentLevel(state.values.currentLevel);
         } else if (state.values.currentLevel === 3 && score === state.values.maxPointsLv) {
+            state.values.currentLevel = 1;
             winningScreen();
         }
+        
     }
-
     checkCurrentLevel(state.values.currentLevel);
+    
 }
 
 
@@ -98,7 +103,6 @@ const gameOver = () =>  {
     state.values.maxTime = 60;
     state.view.time_left.textContent = 60;
     state.values.isGameOver = true;
-    clearTimeout(mainTimeout);
     playAgain();
 }
 
@@ -210,13 +214,7 @@ const initialize = () => {
         } else   {
             mainTimeout = setTimeout(runRandomSquareWithTimeout, state.values.gamePacing);
         }
-
-        state.view.square.forEach((square) => {
-            console.log(square);
-            
-        });
-        
-        console.log('Test');
+        startUpGame();
         decreaseTimeLeft();
         randomSquare();
         state.values.isGameOver = false;
