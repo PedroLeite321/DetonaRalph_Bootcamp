@@ -20,7 +20,8 @@ const state = {
         maxTime: 60,
         maxPointsLv: 0,
         isGameOver: false,
-        haswon: false
+        haswon: false,
+        isTimeOut: false,
     },
 }
 let currentLevel = state.values.currentLevel;
@@ -118,14 +119,14 @@ const checkGameOverCondition = () =>    {
 
 
 const decreaseTimeLeft = () =>  {
-    if(!state.values.isGameOver)  {
+    if(!state.values.isTimeOut)  {
         state.values.maxTime--;
         state.view.time_left.textContent = state.values.maxTime;
 
         if(state.view.time_left.textContent < 0)   {
             gameOver();
             state.values.maxTime = 60;
-            state.values.isGameOver = true;
+            state.values.isTimeOut = true;
             
         }
     }
@@ -208,8 +209,11 @@ const initialize = () => {
         if(state.values.isGameOver === true || state.view.time_left.textContent < 0 || state.values.haswon === true)    {
             console.log('alface');
             clearTimeout(mainTimeout);
+            state.view.time_left.textContent = 60;
             state.view.score.innerHTML = '0';
             state.values.points = 0; // Reset points to 0 on game restart
+            
+            playAgain();
             
         } else   {
             mainTimeout = setTimeout(runRandomSquareWithTimeout, state.values.gamePacing);
@@ -217,6 +221,7 @@ const initialize = () => {
         startUpGame();
         decreaseTimeLeft();
         randomSquare();
+        state.values.isGameOver = false;
         state.values.isGameOver = false;
         state.values.haswon = false;
        
