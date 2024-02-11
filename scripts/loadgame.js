@@ -27,6 +27,7 @@ function loadGameBtn()  {
             
         })
     }
+    startButton();
 }
 
 
@@ -36,6 +37,7 @@ loading();
 
 
 const playAgain = () => {
+    cleanUpGame();
 
     const playAgainBtn = document.querySelector("#playAgainBtn");
     const playAgainBtn2 = document.querySelector("#playAgainBtn2");
@@ -48,8 +50,9 @@ const playAgain = () => {
         startBtnId = document.getElementById("start-gameBtn");
         startBtnId.style.display = "inline";
         state.values.isGameOver = false;
+        startUpGame();
         loading();
-        
+       
         
        
     });

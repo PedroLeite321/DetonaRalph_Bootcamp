@@ -20,7 +20,22 @@ const state = {
         maxTime: 60,
         maxPointsLv: 0,
         isGameOver: false,
+        haswon: false
     },
+}
+
+const cleanUpGame = () =>   {
+    state.view.square.forEach((square) => {
+        square.classList.remove('square');
+        
+    });
+}
+
+const startUpGame = () =>   {
+    state.view.square.forEach((square) => {
+        square.classList.add('square');
+        
+    });
 }
 
 const checkWinning = () => {
@@ -28,7 +43,7 @@ const checkWinning = () => {
         
         switch (level) {
             case 1:
-                console.log('torta')
+                console.log('torta');
                 state.values.maxPointsLv = 15;
                 state.values.gamePacing = 1300;
                 state.view.nextLevelAlert.textContent = `level ${level}`;
@@ -46,6 +61,9 @@ const checkWinning = () => {
                 state.view.nextLevelAlert.textContent = `level ${level}`;
                 checkNextStageConditions();
                 break;
+            default:
+                state.values.currentLevel = 1;
+                state.view.nextLevelAlert.textContent = `Level ${state.values.currentLevel}`;
         }
     };
 
@@ -55,6 +73,7 @@ const checkWinning = () => {
         state.values.maxTime = 60;
         state.view.time_left.textContent = 60;
         state.values.isGameOver = true;
+        state.values.haswon = true;
         playAgain();
     }
 
@@ -92,6 +111,8 @@ const checkGameOverCondition = () =>    {
         
     }
 }
+
+
 const decreaseTimeLeft = () =>  {
     if(!state.values.isGameOver)  {
         state.values.maxTime--;
@@ -107,35 +128,41 @@ const decreaseTimeLeft = () =>  {
     
 
 }
-const addClickChecker = ()  =>  {
-    
-    state.view.square.forEach((square) =>  {
-        square.addEventListener("mousedown", () =>  {
-            if(square.id === state.values.hitGridEnemy)  {
 
+const addClickChecker = () => {
+    // Define the click handler function
+    const clickHandler = (event) => {
+        const square = event.target;
+        if (state.values.points >= 30 || state.values.haswon || state.values.isGameOver) {
+            state.values.points = 0;
+        } else {
+            if (square.id == state.values.hitGridEnemy) {
                 state.values.points++;
-                state.view.score.textContent = state.values.points;
-                checkGameOverCondition();
-                checkWinning();
-
-            }else if(square.id === state.values.hitGridHero)   {
-
+            } else {
                 state.values.points--;
-                state.view.score.textContent = state.values.points;
-                checkGameOverCondition();
-                checkWinning();
-
-            }else if (square.id !== state.values.hitGridHero && square.id !== state.values.hitGridEnemy)  {
-
-                state.values.points--;
-                state.view.score.textContent = state.values.points;
-                checkGameOverCondition();
-                checkWinning();
-
             }
-        })
-    })
-}
+            state.view.score.textContent = state.values.points;
+            checkGameOverCondition();
+            checkWinning();
+        }
+    };
+
+    // Add the click handler to each square only if it's not already attached
+    //Its allways returning undefined, so its allways true.
+    state.view.square.forEach((square) => {
+        if (!square.hasEventListener) {
+            square.addEventListener("mousedown", clickHandler);
+            square.hasEventListener = true;
+        }
+    });
+
+    // Reset points to zero at the start of each game round
+    state.values.points = 0;
+    state.view.score.textContent = state.values.points;
+};
+
+
+
 
 const moveCharacter = ()   =>   {
     
@@ -171,20 +198,34 @@ const randomSquare = () => {
 
 const initialize = () => {
     addClickChecker();
-    state.values.currentLevel = 1;
-    state.view.score.textContent = 0;
-    state.values.points = 0;
     state.view.nextLevelAlert.style.display = "flex";
     const runRandomSquareWithTimeout = () => {
+
+        if(state.values.isGameOver === true || state.view.time_left.textContent < 0 || state.values.haswon === true)    {
+            console.log('alface');
+            clearTimeout(mainTimeout);
+            state.view.score.innerHTML = '0';
+            state.values.points = 0; // Reset points to 0 on game restart
+            
+        } else   {
+            mainTimeout = setTimeout(runRandomSquareWithTimeout, state.values.gamePacing);
+        }
+
+        state.view.square.forEach((square) => {
+            console.log(square);
+            
+        });
         
+        console.log('Test');
         decreaseTimeLeft();
         randomSquare();
-        mainTimeout = setTimeout(runRandomSquareWithTimeout, state.values.gamePacing);
-        
+        state.values.isGameOver = false;
+        state.values.haswon = false;
+       
+      
         
         
     };
 
     runRandomSquareWithTimeout();
 };
-
